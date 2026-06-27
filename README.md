@@ -1,63 +1,76 @@
-# Astro Starter Kit: Blog
+# qz75ha.github.io
+
+個人ポートフォリオ & 技術ブログ。[https://qz75ha.github.io](https://qz75ha.github.io)
+
+## Tech Stack
+
+- [Astro](https://astro.build/) — 静的サイトジェネレーター
+- TypeScript
+- GitHub Actions — push で自動デプロイ
+- GitHub Pages — ホスティング
+
+## Project Structure
+
+```
+src/
+├── components/       # Header, Footer など共通コンポーネント
+├── content/
+│   ├── blog/         # ブログ記事 (.md / .mdx)
+│   └── projects/     # 制作物 (.md)
+├── layouts/
+│   └── BlogPost.astro
+├── pages/
+│   ├── index.astro   # トップページ
+│   ├── about.astro   # About
+│   ├── blog/         # ブログ一覧・記事ページ
+│   └── projects/     # 制作物一覧・詳細ページ
+└── styles/
+    └── global.css
+```
+
+## Content の追加方法
+
+### ブログ記事
+
+`src/content/blog/` に `.md` または `.mdx` ファイルを追加する。
+
+```md
+---
+title: '記事タイトル'
+description: '概要'
+pubDate: '2024-06-01'
+heroImage: './image.png'   # 任意
+---
+
+本文...
+```
+
+### 制作物
+
+`src/content/projects/` に `.md` ファイルを追加する。
+
+```md
+---
+title: 'プロジェクト名'
+description: '一言説明'
+pubDate: '2024-06-01'
+tags: ['Next.js', 'TypeScript']
+url: 'https://...'        # 任意
+github: 'https://...'    # 任意
+---
+
+詳細説明...
+```
+
+## Commands
 
 ```sh
-npm create astro@latest -- --template blog
+npm install        # 依存関係インストール
+npm run dev        # 開発サーバー起動 (localhost:4321)
+npm run build      # 本番ビルド → dist/
+npm run preview    # ビルド結果をローカルでプレビュー
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Deploy
 
-Features:
-
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and Open Graph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-├── public/
-├── src/
-│   ├── assets/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-
-## Credit
-
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+`main` ブランチへの push で GitHub Actions が自動実行され、GitHub Pages にデプロイされる。
