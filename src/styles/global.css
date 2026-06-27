@@ -1,0 +1,171 @@
+:root {
+	--accent: #2337ff;
+	--accent-dark: #1a2bcc;
+	--black: 15, 23, 42;
+	--gray: 100, 116, 139;
+	--gray-light: 226, 232, 240;
+	--gray-dark: 30, 41, 59;
+	--surface: #f8fafc;
+	--box-shadow:
+		0 1px 3px rgba(0, 0, 0, 0.06),
+		0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: var(--font-atkinson), 'Segoe UI', system-ui, sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #ffffff;
+	color: rgb(var(--gray-dark));
+	font-size: 18px;
+	line-height: 1.75;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+
+main {
+	width: 720px;
+	max-width: calc(100% - 2em);
+	margin: auto;
+	padding: 3em 1em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 0 0 0.5rem 0;
+	color: rgb(var(--black));
+	line-height: 1.25;
+	font-weight: 700;
+	letter-spacing: -0.02em;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 1.875rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.25rem; }
+h5 { font-size: 1.125rem; }
+
+strong, b {
+	font-weight: 700;
+}
+
+a {
+	color: var(--accent);
+	text-decoration-thickness: 1px;
+	text-underline-offset: 3px;
+}
+
+a:hover {
+	color: var(--accent-dark);
+}
+
+p {
+	margin-bottom: 1em;
+}
+
+.prose p {
+	margin-bottom: 1.75em;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+	border-radius: 8px;
+}
+
+code {
+	padding: 2px 6px;
+	background-color: rgb(var(--gray-light));
+	border-radius: 4px;
+	font-size: 0.875em;
+}
+
+pre {
+	padding: 1.5em;
+	border-radius: 10px;
+	background-color: rgb(var(--black));
+	overflow-x: auto;
+}
+
+pre > code {
+	all: unset;
+	color: #e2e8f0;
+	font-size: 0.875rem;
+}
+
+blockquote {
+	border-left: 3px solid var(--accent);
+	padding: 0.5em 0 0.5em 1.25em;
+	margin: 0 0 1em;
+	color: rgb(var(--gray));
+	font-style: italic;
+}
+
+hr {
+	border: none;
+	border-top: 1px solid rgb(var(--gray-light));
+	margin: 2em 0;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+th, td {
+	padding: 0.5em 1em;
+	border: 1px solid rgb(var(--gray-light));
+	text-align: left;
+}
+
+th {
+	background-color: var(--surface);
+	font-weight: 600;
+}
+
+textarea, input {
+	font-size: 16px;
+}
+
+@media (max-width: 720px) {
+	body {
+		font-size: 16px;
+	}
+	main {
+		padding: 1.5em 1em;
+	}
+	h1 { font-size: 2rem; }
+	h2 { font-size: 1.5rem; }
+}
+
+.tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem;
+}
+
+.tag {
+	background: rgb(var(--gray-light));
+	border-radius: 4px;
+	font-size: 0.75rem;
+	padding: 0.2rem 0.5rem;
+	color: rgb(var(--gray-dark));
+}
+
+.sr-only {
+	border: 0;
+	padding: 0;
+	margin: 0;
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	white-space: nowrap;
+}

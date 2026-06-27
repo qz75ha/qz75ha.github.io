@@ -1,0 +1,238 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+
+type Props = CollectionEntry<'blog'>['data'];
+
+const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+---
+
+<html lang="ja">
+	<head>
+		<BaseHead title={title} description={description} image={heroImage} />
+		<style>
+			main {
+				width: calc(100% - 2em);
+				max-width: 100%;
+				margin: 0;
+			}
+			.hero-image {
+				width: 100%;
+				margin-bottom: 0;
+			}
+			.hero-image img {
+				display: block;
+				margin: 0 auto;
+				border-radius: 0;
+				box-shadow: none;
+				max-height: 400px;
+				width: 100%;
+				object-fit: cover;
+			}
+			.prose {
+				width: 720px;
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 2em 1em 3em;
+				color: rgb(var(--gray-dark));
+			}
+
+			/* 記事ヘッダー */
+			.article-header {
+				margin-bottom: 2.5em;
+				padding-bottom: 1.5em;
+				border-bottom: 1px solid rgb(var(--gray-light));
+			}
+			.article-meta {
+				display: flex;
+				align-items: center;
+				gap: 0.75rem;
+				margin-bottom: 1rem;
+				font-size: 0.85rem;
+				color: rgb(var(--gray));
+			}
+			.article-meta .sep {
+				color: rgb(var(--gray-light));
+			}
+			.article-header h1 {
+				margin: 0 0 0.5em;
+				line-height: 1.25;
+				font-size: 2rem;
+			}
+			.article-description {
+				color: rgb(var(--gray));
+				font-size: 1rem;
+				margin: 0;
+				line-height: 1.6;
+			}
+
+			/* 本文の見出し */
+			.prose :global(h2) {
+				font-size: 1.5rem;
+				margin: 2.5em 0 0.75em;
+				padding-bottom: 0.4em;
+				border-bottom: 1px solid rgb(var(--gray-light));
+			}
+			.prose :global(h3) {
+				font-size: 1.2rem;
+				margin: 2em 0 0.6em;
+			}
+			.prose :global(h4) {
+				font-size: 1rem;
+				margin: 1.5em 0 0.5em;
+				color: rgb(var(--gray-dark));
+			}
+
+			/* インラインコード */
+			.prose :global(code) {
+				background: rgb(var(--gray-light));
+				padding: 0.15em 0.4em;
+				border-radius: 4px;
+				font-size: 0.875em;
+			}
+
+			/* コードブロック wrapper（JS で注入） */
+			.prose :global(.code-block) {
+				border-radius: 10px;
+				overflow: hidden;
+				margin-bottom: 1.75em;
+				box-shadow: var(--box-shadow);
+			}
+			.prose :global(.code-header) {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 0.5rem 1rem;
+				background: #161b22;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+			}
+			.prose :global(.code-lang) {
+				font-size: 0.7rem;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				color: rgba(255, 255, 255, 0.35);
+				font-family: monospace;
+			}
+			.prose :global(.copy-btn) {
+				background: transparent;
+				border: 1px solid rgba(255, 255, 255, 0.18);
+				color: rgba(255, 255, 255, 0.45);
+				border-radius: 4px;
+				padding: 0.15rem 0.55rem;
+				font-size: 0.7rem;
+				cursor: pointer;
+				transition: border-color 0.15s, color 0.15s;
+				font-family: inherit;
+			}
+			.prose :global(.copy-btn:hover) {
+				border-color: rgba(255, 255, 255, 0.45);
+				color: rgba(255, 255, 255, 0.8);
+			}
+			.prose :global(.code-block pre) {
+				margin: 0;
+				border-radius: 0;
+				box-shadow: none;
+			}
+
+			/* リスト */
+			.prose :global(ul),
+			.prose :global(ol) {
+				padding-left: 1.5em;
+				margin-bottom: 1.5em;
+			}
+			.prose :global(li) {
+				margin-bottom: 0.35em;
+			}
+
+			/* 引用 */
+			.prose :global(blockquote) {
+				background: rgb(var(--surface), 1);
+				border-radius: 0 6px 6px 0;
+				padding: 0.75em 1.25em;
+				margin: 0 0 1.5em;
+			}
+
+			/* 画像 */
+			.prose :global(img) {
+				border-radius: 8px;
+				margin: 1em 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<Header />
+		<main>
+			<article>
+				{heroImage && (
+					<div class="hero-image">
+						<Image width={1020} height={400} src={heroImage} alt="" />
+					</div>
+				)}
+				<div class="prose">
+					<div class="article-header">
+						<div class="article-meta">
+							<FormattedDate date={pubDate} />
+							{updatedDate && (
+								<>
+									<span class="sep">·</span>
+									<span>Updated: <FormattedDate date={updatedDate} /></span>
+								</>
+							)}
+						</div>
+						<h1>{title}</h1>
+						{description && <p class="article-description">{description}</p>}
+					</div>
+					<slot />
+				</div>
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<script>
+	document.querySelectorAll('.prose pre').forEach((pre) => {
+		const lang = pre.getAttribute('data-language') ?? '';
+		const code = pre.querySelector('code');
+
+		const wrapper = document.createElement('div');
+		wrapper.className = 'code-block';
+
+		const header = document.createElement('div');
+		header.className = 'code-header';
+
+		if (lang) {
+			const langLabel = document.createElement('span');
+			langLabel.className = 'code-lang';
+			langLabel.textContent = lang;
+			header.appendChild(langLabel);
+		} else {
+			header.appendChild(document.createElement('span'));
+		}
+
+		const copyBtn = document.createElement('button');
+		copyBtn.className = 'copy-btn';
+		copyBtn.textContent = 'Copy';
+		copyBtn.addEventListener('click', async () => {
+			try {
+				await navigator.clipboard.writeText(code?.textContent ?? '');
+				copyBtn.textContent = 'Copied!';
+			} catch {
+				copyBtn.textContent = 'Error';
+			}
+			setTimeout(() => {
+				copyBtn.textContent = 'Copy';
+			}, 2000);
+		});
+		header.appendChild(copyBtn);
+
+		pre.parentNode?.insertBefore(wrapper, pre);
+		wrapper.appendChild(header);
+		wrapper.appendChild(pre);
+	});
+</script>

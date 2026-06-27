@@ -1,0 +1,124 @@
+---
+import { getCollection, render } from 'astro:content';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import BaseHead from '../../components/BaseHead.astro';
+
+export async function getStaticPaths() {
+	const projects = await getCollection('projects');
+	return projects.map((project) => ({
+		params: { slug: project.id },
+		props: project,
+	}));
+}
+
+const project = Astro.props;
+const { Content } = await render(project);
+---
+
+<!doctype html>
+<html lang="ja">
+	<head>
+		<BaseHead
+			title={project.data.title}
+			description={project.data.description}
+			image={project.data.heroImage}
+		/>
+		<style>
+			main {
+				width: calc(100% - 2em);
+				max-width: 100%;
+				margin: 0;
+			}
+			.hero-image {
+				width: 100%;
+			}
+			.hero-image img {
+				display: block;
+				margin: 0 auto;
+				border-radius: 12px;
+				box-shadow: var(--box-shadow);
+			}
+			.prose {
+				width: 720px;
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 1em;
+				color: rgb(var(--gray-dark));
+			}
+			.title {
+				margin-bottom: 1.5em;
+				padding: 1em 0;
+				text-align: center;
+			}
+			.title h1 {
+				margin: 0 0 0.5em;
+				line-height: 1.2;
+			}
+			.title > p {
+				color: rgb(var(--gray));
+				margin-bottom: 1rem;
+			}
+			.tags {
+				justify-content: center;
+				margin-bottom: 1rem;
+			}
+			.links {
+				display: flex;
+				gap: 1rem;
+				justify-content: center;
+				margin-top: 1rem;
+			}
+			.links a {
+				padding: 0.4rem 1rem;
+				border: 1px solid rgb(var(--accent));
+				border-radius: 6px;
+				color: rgb(var(--accent));
+				text-decoration: none;
+				font-size: 0.9rem;
+				transition: background 0.15s ease, color 0.15s ease;
+			}
+			.links a:hover {
+				background: var(--accent);
+				color: white;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<article>
+				{
+					project.data.heroImage && (
+						<div class="hero-image">
+							<img src={project.data.heroImage.src} alt={project.data.title} />
+						</div>
+					)
+				}
+				<div class="prose">
+					<div class="title">
+						<h1>{project.data.title}</h1>
+						<p>{project.data.description}</p>
+						<div class="tags">
+							{project.data.tags.map((tag) => <span class="tag">{tag}</span>)}
+						</div>
+						<div class="links">
+							{project.data.url && (
+								<a href={project.data.url} target="_blank" rel="noopener noreferrer">
+									Live Demo
+								</a>
+							)}
+							{project.data.github && (
+								<a href={project.data.github} target="_blank" rel="noopener noreferrer">
+									GitHub
+								</a>
+							)}
+						</div>
+					</div>
+					<Content />
+				</div>
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>
