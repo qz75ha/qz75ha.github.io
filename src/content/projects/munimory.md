@@ -1,22 +1,56 @@
 ---
 title: 'munimory'
-description: 'Next.js で作った家計簿アプリ'
-pubDate: '2024-01-01'
-tags: ['Next.js', 'TypeScript', 'Tailwind CSS']
-url: 'https://munimory.example.com'
-github: 'https://github.com/qz75ha/munimory'
+description: 'コネクタ型フォトスライドショー SaaS'
+pubDate: '2026-07-11'
+tags: ['Next.js', 'AWS', 'Terraform', 'Serverless']
+url: 'https://main.d3hrv97t5azvrx.amplifyapp.com/'
 ---
 
 ## 概要
 
-munimory は支出を記録・可視化する家計簿アプリです。
+写真データを自分では保有せず、Google Drive・Dropbox などのコネクタ経由で写真にアクセスする招待制フォトスライドショープラットフォーム。  
+「写真は外部ストレージに置いたまま、スライドショーだけ共有する」がコアコンセプト。
 
-## 技術スタック
+## 要件
 
-- **フレームワーク**: Next.js 14 (App Router)
-- **言語**: TypeScript
-- **スタイル**: Tailwind CSS
+- 写真を自前サーバーに保存しない（セキュリティリスク・ストレージコストの最小化）
+- Google Drive / Dropbox フォルダを接続してスライドショー再生
+- 招待リンクで閲覧専用アクセス・個別ダウンロード
+- マルチテナント構成：複数ユーザーが独立したイベント（アルバム）を管理
+- クラウド稼働コストの極小化
 
-## 工夫した点
+## アーキテクチャ
 
-ここにプロジェクトの詳細を書いてください。
+- フロント: Next.js 15 (App Router) + Tailwind CSS / AWS Amplify Hosting
+- API: API Gateway + Lambda (Node.js)
+- 認証: Google SSO（JWT）＋ GDrive / Dropbox OAuth
+- DB: DynamoDB（ユーザー / イベント / トークン管理）
+- サムネイル配信: Lambda プロキシ + CloudFront キャッシュ
+- IaC: Terraform
+- CI/CD: GitHub Actions (OIDC) + Amplify
+
+```mermaid
+flowchart LR
+  user[User] -->|HTTPS| amplify[Amplify\nNext.js]
+  amplify -->|API Call + JWT| apigw[API Gateway]
+  apigw --> lambda[Lambda]
+  lambda --> ddb[DynamoDB]
+  lambda -->|OAuth| gdrive[Google Drive]
+  lambda -->|OAuth| dropbox[Dropbox]
+  lambda -->|Proxy| cf_thumb[CloudFront\nThumbnail CDN]
+  cf_thumb -->|Signed Req| gdrive
+  cf_thumb -->|Signed Req| dropbox
+  amplify -->|Google SSO| google_auth[Google OAuth]
+```
+
+## 工夫
+
+- **写真非保有ポリシーの貫徹**。サムネイルも S3 にコピーせず Lambda プロキシ経由で CloudFront にキャッシュすることで、写真を自前インフラに残さない設計を維持しながら表示パフォーマンスも確保。
+
+- **テナント分離をパスベースで実現**。`/[username]/[event]/` のパスルーティングにより、サブドメイン方式（ワイルドカード証明書が必要）を避けて実装コストを最小化。
+
+- **GitHub Actions OIDC 認証**。アクセスキーを管理せず短命トークンで AWS リソースにアクセスできる構成にし、シークレット漏洩リスクをゼロに。
+
+## 学び
+
+- デザインを Claude Design でお試し。AI にデザインを任せる新しいワークフローを体験した。
