@@ -1,16 +1,17 @@
 ---
-title: 'Kid Doodle AI'
+title: 'おえかきファッションスタジオ'
 description: '子供のお絵描きAIアプリ'
 pubDate: '2026-06-28'
 tags: ['AWS', 'Serverless', 'Image-gen']
 url: 'https://dvixfewgj9svk.cloudfront.net/'
 ---
 
-## 概要
+## Overview
 
 子供向けの「お絵描き → AIリアル化」体験するシステム
 
 ## Requirements
+
 - 子供の遊び目的なので、予算は月 5 ドル程度
 - 画像はユーザーごとに約 100 枚保存
 - 保存期限はなし
@@ -43,13 +44,13 @@ flowchart LR
   cw --> budgets[AWS Budgets]
 ```
 
-## 工夫
+## Techniques
 
 - コストと安定の拘り。静的ホスティングやDynamoDBの活用など、サーバーレスにこだわり運用コストと安定稼働の両立を実現。
 
 - 画像生成はBedrockで複数モデルで比較検討。結論OpenAIに落ち着いた
 
-## 学び
+## Learnings
 
 - はじめての仕様駆動開発。途中でCodexからClaude Codeに切り替えしたが、仕様書のおかげで全く苦労なく移行できた。
 

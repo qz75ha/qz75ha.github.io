@@ -6,12 +6,12 @@ tags: ['Next.js', 'AWS', 'Terraform', 'Serverless']
 url: 'https://main.d3hrv97t5azvrx.amplifyapp.com/'
 ---
 
-## 概要
+## Overview
 
 写真データを自分では保有せず、Google Drive・Dropbox などのコネクタ経由で写真にアクセスする招待制フォトスライドショープラットフォーム。  
 「写真は外部ストレージに置いたまま、スライドショーだけ共有する」がコアコンセプト。
 
-## 要件
+## Requirements
 
 - 写真を自前サーバーに保存しない（セキュリティリスク・ストレージコストの最小化）
 - Google Drive / Dropbox フォルダを接続してスライドショー再生
@@ -19,7 +19,7 @@ url: 'https://main.d3hrv97t5azvrx.amplifyapp.com/'
 - マルチテナント構成：複数ユーザーが独立したイベント（アルバム）を管理
 - クラウド稼働コストの極小化
 
-## アーキテクチャ
+## Architecture
 
 - フロント: Next.js 15 (App Router) + Tailwind CSS / AWS Amplify Hosting
 - API: API Gateway + Lambda (Node.js)
@@ -29,6 +29,7 @@ url: 'https://main.d3hrv97t5azvrx.amplifyapp.com/'
 - IaC: Terraform
 - CI/CD: GitHub Actions (OIDC) + Amplify
 
+**Architecture Diagram**
 ```mermaid
 flowchart LR
   user[User] -->|HTTPS| amplify[Amplify\nNext.js]
@@ -43,7 +44,7 @@ flowchart LR
   amplify -->|Google SSO| google_auth[Google OAuth]
 ```
 
-## 工夫
+## Techniques
 
 - **写真非保有ポリシーの貫徹**。サムネイルも S3 にコピーせず Lambda プロキシ経由で CloudFront にキャッシュすることで、写真を自前インフラに残さない設計を維持しながら表示パフォーマンスも確保。
 
@@ -51,6 +52,6 @@ flowchart LR
 
 - **GitHub Actions OIDC 認証**。アクセスキーを管理せず短命トークンで AWS リソースにアクセスできる構成にし、シークレット漏洩リスクをゼロに。
 
-## 学び
+## Learnings
 
 - デザインを Claude Design でお試し。AI にデザインを任せる新しいワークフローを体験した。
