@@ -5,6 +5,7 @@ pubDate: '2026-07-13'
 tags: ['静的HTML', 'Canvas 2D', 'AWS', 'Terraform', 'JavaScript']
 url: 'https://8bee.games/'
 github: 'https://github.com/qz75ha/8x8games'
+heroImage: '../../assets/projects/8bee-games.png'
 ---
 
 ## Overview
