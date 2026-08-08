@@ -69,18 +69,21 @@ const { Content } = await render(project);
 				justify-content: center;
 				margin-top: 1rem;
 			}
-			.links a {
-				padding: 0.4rem 1rem;
+			.links a.cta {
+				padding: 0.65rem 1.75rem;
 				border: 1px solid rgb(var(--accent));
-				border-radius: 6px;
-				color: rgb(var(--accent));
-				text-decoration: none;
-				font-size: 0.9rem;
-				transition: background 0.15s ease, color 0.15s ease;
-			}
-			.links a:hover {
+				border-radius: 8px;
 				background: var(--accent);
 				color: white;
+				text-decoration: none;
+				font-size: 1rem;
+				font-weight: 600;
+				box-shadow: var(--box-shadow);
+				transition: background 0.15s ease, transform 0.15s ease;
+			}
+			.links a.cta:hover {
+				background: var(--accent-dark);
+				transform: translateY(-2px);
 			}
 		</style>
 	</head>
@@ -104,13 +107,8 @@ const { Content } = await render(project);
 						</div>
 						<div class="links">
 							{project.data.url && (
-								<a href={project.data.url} target="_blank" rel="noopener noreferrer">
-									Live Demo
-								</a>
-							)}
-							{project.data.github && (
-								<a href={project.data.github} target="_blank" rel="noopener noreferrer">
-									GitHub
+								<a class="cta" href={project.data.url} target="_blank" rel="noopener noreferrer">
+									Live Demo →
 								</a>
 							)}
 						</div>
