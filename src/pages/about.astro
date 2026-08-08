@@ -31,6 +31,7 @@ import { SITE_TITLE } from '../consts';
 				height: 100%;
 				object-fit: cover;
 				border-radius: 50%;
+				image-rendering: pixelated;
 			}
 			.profile-text h1 {
 				font-size: 1.75rem;
@@ -153,8 +154,7 @@ import { SITE_TITLE } from '../consts';
 			<!-- プロフィールヘッダー -->
 			<div class="profile">
 				<div class="avatar">
-					<!-- TODO: プロフィール画像を public/avatar.jpg に置いて src="/avatar.jpg" に変更 -->
-					<!-- <img src="/avatar.jpg" alt="qz75ha" /> -->
+					<img src="/avatar.png" alt="qz75ha" width="96" height="96" />
 				</div>
 				<div class="profile-text">
 					<h1>qz75ha</h1>
