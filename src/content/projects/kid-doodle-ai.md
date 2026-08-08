@@ -4,6 +4,7 @@ description: '子供のお絵描きAIアプリ'
 pubDate: '2026-06-28'
 tags: ['AWS', 'Serverless', 'Image-gen']
 url: 'https://dvixfewgj9svk.cloudfront.net/'
+heroImage: '../../assets/projects/kid-doodle-ai.png'
 ---
 
 ## Overview

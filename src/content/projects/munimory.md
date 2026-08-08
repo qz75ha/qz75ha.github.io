@@ -4,6 +4,7 @@ description: 'コネクタ型フォトスライドショー SaaS'
 pubDate: '2026-07-11'
 tags: ['Next.js', 'AWS', 'Terraform', 'Serverless']
 url: 'https://main.d3hrv97t5azvrx.amplifyapp.com/'
+heroImage: '../../assets/projects/munimory.png'
 ---
 
 ## Overview
