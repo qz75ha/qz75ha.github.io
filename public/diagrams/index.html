@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ja">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>構成図（表示確認用）</title>
+<style>
+  :root { color-scheme: light dark }
+  body { margin: 0; padding: 16px; font: 15px/1.7 system-ui, sans-serif; max-width: 100%; }
+  h1 { font-size: 1.2rem }
+  h2 { font-size: 1rem; margin-top: 2rem }
+  p  { color: #555 }
+  img { display: block; max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 6px }
+  a.zoom { display: inline-block; margin-top: .4rem; font-size: .9rem }
+</style>
+
+<h1>構成図（表示確認用）</h1>
+<p>
+  自作の構成図エンジン <strong>kouzu</strong> が出力した SVG。フォントは SVG 内に
+  サブセットして埋め込んであるため、閲覧環境にフォントが無くても同じ字形で表示される。
+  このページは表示確認のためのもので、サイトのナビゲーションからは辿れない。
+</p>
+
+<h2>munimory の構成</h2>
+<p>写真を自前で持たず、利用者のストレージから都度取り出して中継する構成。</p>
+<img src="munimory.svg" alt="munimory の構成図">
+<a class="zoom" href="munimory.svg">原寸で開く</a>
+
+<h2>8×8 GAMES のリリース経路</h2>
+<p>site/ を直してから公開されるまで。PR ならステージング、main なら本番へ出る。</p>
+<img src="deploy-path.svg" alt="8x8 GAMES のリリース経路">
+<a class="zoom" href="deploy-path.svg">原寸で開く</a>

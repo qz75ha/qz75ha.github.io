@@ -74,14 +74,3 @@ npm run preview    # ビルド結果をローカルでプレビュー
 ## Deploy
 
 `main` ブランチへの push で GitHub Actions が自動実行され、GitHub Pages にデプロイされる。
-
-<!-- ここから下は kouzu の SVG が GitHub でどう表示されるかの検証用。確認後に削除する -->
-## 検証: kouzu で生成した SVG の表示
-
-Markdown の画像記法で貼った場合（フォントは SVG に埋め込み済み）。
-
-![munimory の構成](docs/diagrams/munimory.svg)
-
-クリックで原寸表示にした場合。
-
-[![リリース経路](docs/diagrams/deploy-path.svg)](docs/diagrams/deploy-path.svg)
